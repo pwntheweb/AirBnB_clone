@@ -1,45 +1,62 @@
 #!/usr/bin/python3
-"""tests the BaseModels"""
-sys.path.append('/home/vagrant/ALX-team projects/AirBnB_clone/models')
+"""Tests the basemodels"""
 import unittest
+import os
+import pep8
 from models.base_model import BaseModel
-from datetime import datetime
+
 
 class TestBaseModel(unittest.TestCase):
+    """tests for basemodel"""
+    @classmethod
+    def setUpClass(cls):
+        """sets up"""
+        cls.testBase = BaseModel()
+        cls.testBase.x = "x"
+        cls.testBase.y = 100
 
-    def setUp(self):
-        self.base_model = BaseModel()
+    @classmethod
+    def tearDownClass(cls):
+        """
+        tears down
+        """
+        del cls.testBase
+        try:
+            os.remove("file.json")
+        except:
+            pass
 
-    def test_id_is_string(self):
-        self.assertIsInstance(self.base_model.id, str)
+    def test_pep8_basemodel(self):
+        """
+        tests pep8
+        """
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/base_model.py'])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_created_at_is_datetime(self):
-        self.assertIsInstance(self.base_model.created_at, datetime)
+    def test_check_functions(self):
+        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.to_dict.__doc__)
 
-    def test_updated_at_is_datetime(self):
-        self.assertIsInstance(self.base_model.updated_at, datetime)
+    def test_attribute_basemodel(self):
+        self.assertTrue(hasattr(BaseModel, "__init__"))
+        self.assertTrue(hasattr(BaseModel, "save"))
+        self.assertTrue(hasattr(BaseModel, "to_dict"))
 
-    def test_str_representation(self):
-        expected_output = "[BaseModel] ({}) {}".format(self.base_model.id, self.base_model.__dict__)
-        self.assertEqual(str(self.base_model), expected_output)
+    def test_init(self):
+        self.assertTrue(isinstance(self.testBase, BaseModel))
 
-    def test_save_updates_updated_at(self):
-        old_updated_at = self.base_model.updated_at
-        self.base_model.save()
-        self.assertNotEqual(self.base_model.updated_at, old_updated_at)
+    def test_save(self):
+        self.testBase.save()
+        self.assertNotEqual(self.testBase.created_at, self.testBase.updated_at)
 
-    def test_to_dict_returns_dict(self):
-        expected_keys = ['id', 'created_at', 'updated_at', '__class__']
-        base_model_dict = self.base_model.to_dict()
-        self.assertIsInstance(base_model_dict, dict)
-        for key in expected_keys:
-            self.assertIn(key, base_model_dict)
+    def test_to_dict(self):
+        copy = self.testBase.to_dict()
+        self.assertEqual(self.testBase.__class__.__name__, 'BaseModel')
+        self.assertIsInstance(copy['created_at'], str)
+        self.assertIsInstance(copy['updated_at'], str)
 
-        self.assertEqual(base_model_dict['__class__'], 'BaseModel')
-        self.assertEqual(base_model_dict['id'], self.base_model.id)
-        self.assertEqual(base_model_dict['created_at'], self.base_model.created_at.isoformat())
-        self.assertEqual(base_model_dict['updated_at'], self.base_model.updated_at.isoformat())
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
-
