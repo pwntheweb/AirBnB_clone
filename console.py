@@ -13,7 +13,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-class HBNBCommand(cmd.cmd):
+class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     classes = {"BaseModel",
                 "User", "State", "City", "Amenity", "Place", "Review"}
@@ -166,5 +166,5 @@ class HBNBCommand(cmd.cmd):
             print("*** Unknown syntax: {}".format(line))
             return
 
-    if __name__ == '__main__':
-        HBNBCommand().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
