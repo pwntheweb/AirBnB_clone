@@ -4,6 +4,13 @@ serializes instances to JSON file && deserialzes to instances from JSON file
 """
 import json
 import models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 class FileStorage:
     """creating file storage"""
