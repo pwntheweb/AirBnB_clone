@@ -20,11 +20,11 @@ class FileStorage:
     def all(self):
         """returns the dict of objects"""
         return self.__objects
-    
+
     def new(self, obj):
         """adds new obj to __objects"""
         if obj:
-            key = "{}.{}".format(type(obj).__name__, obj,id)
+            key = "{}.{}".format(type(obj).__name__, obj, id)
             self.__objects[key] = obj
 
     def save(self):
