@@ -13,11 +13,11 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb) '
-    classes = {"BaseModel",
-                "User", "State", "City", "Amenity", "Place", "Review"}
-    
+    prompt = ' (hbnb) '
+    classes = {"BaseModel", "User", "State", "City", "Amenity", "Place", "Review"}
+
     def do_quit(self, line):
         "Quit command to exit the program"
         return True
@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             print(storage.all()[keyValue])
-    
+
     def do_destroy(self, line):
         """deletes an obj"""
         if not len(line):
@@ -78,8 +78,7 @@ class HBNBCommand(cmd.Cmd):
         if strings[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        print([obj for obj in storage.all().values()
-            if strinngs[0] == type(obj).__name__])
+        print([obj for obj in storage.all().values() if strinngs[0] == type(obj).__name__])
 
     def do_update(self, line):
         """updates an obj"""
@@ -105,8 +104,8 @@ class HBNBCommand(cmd.Cmd):
                 return
             try:
                 setattr(storage.all()[keyValue], strings[2], eval(strings[3]))
-            except:
-                setattr(stroage.all()[keyValue], strings[2], strings[3])
+            except Exception as e:
+                print(f"Error: {e}")
 
     def emptyline(self):
         """passes"""
@@ -126,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             newdict = newstring[newstrung.find("{")+1:newstring.rfind("}")]
             return eval("{" + newdict + "}")
-        except:
+        except valueError:
             return None
 
     def default(self, line):
@@ -165,6 +164,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("*** Unknown syntax: {}".format(line))
             return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
