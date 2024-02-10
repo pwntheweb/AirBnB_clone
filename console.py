@@ -16,7 +16,15 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     prompt = ' (hbnb) '
-    classes = {"BaseModel", "User", "State", "City", "Amenity", "Place", "Review"}
+    classes = {
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+                }
 
     def do_quit(self, line):
         "Quit command to exit the program"
@@ -78,7 +86,10 @@ class HBNBCommand(cmd.Cmd):
         if strings[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        print([obj for obj in storage.all().values() if strinngs[0] == type(obj).__name__])
+        print([
+            obj
+            for obj in storage.all().values()
+            if strinngs[0] == type(obj).__name__])
 
     def do_update(self, line):
         """updates an obj"""
