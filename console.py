@@ -2,9 +2,10 @@
 """entry of the command interpreter"""
 import cmd
 import ast
+import sys
 from models.base_model import BaseModel
 from models.user import User
-from models import storage
+from models.__init__ import storage
 from shlex import split
 import shlex
 from models.state import State
