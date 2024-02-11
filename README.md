@@ -12,4 +12,4 @@ The airbnb console is a cmd interpeter to manipulate a powerful storage system, 
 `help`
 
 ### Author
-[Pwntheweb](www.pwntheweb.com)
+[Pwntheweb](https://pwntheweb.com)
