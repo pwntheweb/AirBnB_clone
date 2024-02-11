@@ -10,7 +10,7 @@ from datetime import datetime
 class BaseModel:
     def __init__(self, *args, **kwargs):
         """class initialization"""
-        valid_keys = {'id', 'created_at', 'updated_at'}
+        valid_keys = {'id', 'created_at', 'updated_at', 'first_name'}
         if kwargs:
             for key, value in kwargs.items():
                 if key not in valid_keys and key != '__class__':

@@ -43,7 +43,10 @@ class FileStorage:
                 for key, obj_dict in data.items():
                     class_name = obj_dict['__class__']
                     del obj_dict['__class__']
-                    obj = globals()[class_name](**obj_dict)
-                    self.__objects[key] = obj
+                    try:
+                        obj = globals()[class_name](**obj_dict)
+                        self.__objects[key] = obj
+                    except TypeError as e:
+                        print(f"Error loading object {key}: {e}")
         except FileNotFoundError:
             pass

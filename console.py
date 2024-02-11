@@ -75,8 +75,16 @@ class HBNBCommand(cmd.Cmd):
         if len(strings) == 1:
             print("** instance id missing **")
             return
-        del storage.all()[keyValue]
-        storage.save()
+        keyValue = strings[0] + '.' + strings[1]
+        if keyValue not in storage.all().keys():
+            print("** no instance found **")
+            return
+        try:
+            del storage.all()[keyValue]
+            storage.save()
+            print("Object deleted successfully.")
+        except KeyError:
+            print("Error: Failed to delete object.")
 
     def do_all(self, line):
         "prints all"
@@ -99,8 +107,8 @@ class HBNBCommand(cmd.Cmd):
             return
         strings = split(line)
         for string in strings:
-            if string.startswith('"') and string.endwith('"'):
-                string - string[1:-1]
+            if string.startswith('"') and string.endswith('"'):
+                string = string[1:-1]
             if strings[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
@@ -115,7 +123,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             try:
-                setattr(storage.all()[keyValue], strings[2], eval(strings[3]))
+                if strings[3].startswith('"') and strings[3].endswith('"'):
+                    value = strings[3][1:-1]
+                else:
+                    value = strings[3]
+                setattr(storage.all()[keyValue], strings[2], value)
             except Exception as e:
                 print(f"Error: {e}")
 
