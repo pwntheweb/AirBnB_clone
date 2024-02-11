@@ -65,7 +65,7 @@ class TestFileStorage(unittest.TestCase):
         dic = altsotrage.all()
         rev = User()
         rev.id = 69
-        rev.name = "Meep"
+        rev.first_name = "Meep"
         altsotrage.new(rev)
         key = rev.__class__.__name__ + "." + str(rev.id)
         self.assertIsNotNone(dic[key])

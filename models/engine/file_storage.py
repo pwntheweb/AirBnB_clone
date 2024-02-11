@@ -24,7 +24,7 @@ class FileStorage:
     def new(self, obj):
         """adds new obj to __objects"""
         if obj:
-            key = "{}.{}".format(type(obj).__name__, obj, id)
+            key = "{}.{}".format(type(obj).__name__, obj.id)
             self.__objects[key] = obj
 
     def save(self):
@@ -41,7 +41,7 @@ class FileStorage:
             with open(self.__file_path, 'r') as f:
                 data = json.load(f)
                 for key, obj in data.items():
-                    newObj = eval(obj['__class__'])(**obj)
+                    newObj = eval(getattr(obj, '__class__'))(**obj)
                     self.__objects[key] = newObj
         except FileNotFoundError:
             pass

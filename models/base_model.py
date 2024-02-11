@@ -36,7 +36,7 @@ class BaseModel:
         self.updated_at = datetime.now()
         models.storage.save()
 
-    def to_dic(self):
+    def to_dict(self):
         """gives dict of objects"""
         copy = dict(self.__dict__)
         copy['__class__'] = str(self.__class__.__name__)

@@ -21,6 +21,11 @@ class test_basemodel(unittest.TestCase):
         """ """
         pass
 
+    def value(self, **kwargs):
+        if 'Name' not in kwargs:
+            raise KeyError("'Name' key is missing")
+        return BaseModel()
+
     def tearDown(self):
         try:
             os.remove('file.json')
@@ -48,13 +53,14 @@ class test_basemodel(unittest.TestCase):
             new = BaseModel(**copy)
 
     def test_save(self):
-        """ Testing save """
-        i = self.value()
-        i.save()
-        key = self.name + "." + i.id
-        with open('file.json', 'r') as f:
-            j = json.load(f)
-            self.assertEqual(j[key], i.to_dict())
+        """  """
+        instance = self.value()
+        instance.save()
+        key = "{}.{}".format(type(instance).__name__, instance.id)
+        with open('file.json', 'r') as file:
+            json_data = json.load(file)
+        self.assertIn(key, json_data)
+        self.assertEqual(json_data[key], instance.to_dict())
 
     def test_str(self):
         """ """
