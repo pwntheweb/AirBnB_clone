@@ -25,8 +25,12 @@ class TestAmenity(unittest.TestCase):
         """teardown"""
         try:
             os.remove("file.json")
-        except SpecificException as e:
+        except FileNotFoundError:
             pass
+        except PermissionError:
+            pass
+        except Exception as e:
+            print(f"An error occured: {e}")
 
     def test_pep8_Amen(self):
         """Tests pep8"""

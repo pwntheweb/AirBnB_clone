@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         print([
             obj
             for obj in storage.all().values()
-            if strinngs[0] == type(obj).__name__])
+            if hasattr(obj, 'id') and strings[0] == type(obj).__name__])
 
     def do_update(self, line):
         """updates an obj"""
