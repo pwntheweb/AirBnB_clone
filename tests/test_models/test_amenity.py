@@ -25,7 +25,7 @@ class TestAmenity(unittest.TestCase):
         """teardown"""
         try:
             os.remove("file.json")
-        except:
+        except SpecificException as e:
             pass
 
     def test_pep8_Amen(self):
