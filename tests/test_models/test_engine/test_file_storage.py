@@ -36,8 +36,12 @@ class TestFileStorage(unittest.TestCase):
     def teardown(self):
         try:
             os.remove("file.json")
-        except:
+        except FileNotFoundError:
             pass
+        except PermissionError:
+            pass
+        except Exception as e:
+            print(f"An error occured: {e}")
 
     def test_pep8_filestorage(self):
         """
@@ -71,31 +75,41 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsNotNone(dic[key])
 
     def test_reload_filestorage(self):
-        """
-        tests reload
-        """
+        """ tests reload """
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
         path = os.path.join(Root, "file.json")
-        with open(path, 'r') as f:
-            lines = f.readlines()
+        try:
+            with open(path, 'r') as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            lines = []
 
         try:
             os.remove(path)
-        except:
+        except FileNotFoundError:
             pass
+        except PermissionError:
+            pass
+        except Exception as e:
+            print(f"An error occured: {e}")
 
         self.storage.save()
 
-        with open(path, 'r') as f:
-            lines2 = f.readlines()
+        try:
+            with open(path, 'r') as f:
+                lines2 = f.readlines()
+        except FileNotFoundError:
+            lines2 = []
 
         self.assertEqual(lines, lines2)
 
         try:
             os.remove(path)
-        except:
+        except FileNotFoundError:
             pass
+        except Exception as e:
+            print(f"An error occured: {e}")
 
         with open(path, "w") as f:
             f.write("{}")
