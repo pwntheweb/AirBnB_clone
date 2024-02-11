@@ -10,3 +10,6 @@ The airbnb console is a cmd interpeter to manipulate a powerful storage system, 
 `./console.py`
 - Use help to know the commands
 `help`
+
+### Author
+[Pwntheweb](www.pwntheweb.com)
