@@ -9,12 +9,14 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        """class intialization"""
+        """class initialization"""
+        valid_keys = {'id', 'created_at', 'updated_at'}
         if kwargs:
             for key, value in kwargs.items():
+                if key not in valid_keys and key != '__class__':
+                    raise KeyError(f"Unexpected keyword argument: {key}")
                 if key == 'created_at' or key == 'updated_at':
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != '__class__':
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
@@ -24,7 +26,7 @@ class BaseModel:
 
     def __str__(self):
         """a string to reprsent base model"""
-        return "[{}] ([]) {}".format(
+        return "[{}] ({}) {}".format(
                 type(self).__name__, self.id, self.__dict__)
 
     def __repr__(self):
