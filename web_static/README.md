@@ -1,4 +1,3 @@
-this is a readme file
 [0](https://htmlpreview.github.io/?https://github.com/pwntheweb/AirBnB_clone/blob/main/web_static/0-index.html)
 [1](https://htmlpreview.github.io/?https://github.com/pwntheweb/AirBnB_clone/blob/main/web_static/1-index.html)
 [2](https://htmlpreview.github.io/?https://github.com/pwntheweb/AirBnB_clone/blob/main/web_static/2-index.html)
